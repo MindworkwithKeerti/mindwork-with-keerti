@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Parent/Guardian Consent & Child Assent – Counseling | Keerti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --ink:#1a2535; --muted:#5a6a7e; --light:#8fa0b4; --bg:#f5f6f4; --white:#fff;
+      --accent:#3a6b4f; --accent-light:#e7f1ea; --child:#b4632e; --child-light:#fbf0e6;
+      --border:#dad9d2; --field-bg:#fdfcfb; --danger:#c0392b;
+      --serif:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif; --radius:6px;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--sans); background:var(--bg); color:var(--ink); font-size:15px; line-height:1.7; }
+    .page-header { background:var(--accent); color:#fff; padding:36px 40px 30px; text-align:center; }
+    .page-header .kicker { font-size:11px; font-weight:500; letter-spacing:3px; text-transform:uppercase; opacity:.75; margin-bottom:10px; }
+    .page-header h1 { font-family:var(--serif); font-size:26px; font-weight:600; margin-bottom:6px; }
+    .page-header .subtitle { font-size:13px; opacity:.85; }
+    .wrapper { max-width:760px; margin:0 auto; padding:40px 20px 80px; }
+    .intro-box { background:var(--accent-light); border-left:4px solid var(--accent); border-radius:var(--radius); padding:18px 22px; margin-bottom:32px; font-size:14px; color:#2c5240; }
+    .intro-box strong { font-weight:500; }
+    .part-banner { font-family:var(--serif); font-size:18px; font-weight:600; margin:38px 0 18px; padding:12px 20px; border-radius:8px; }
+    .part-banner.guardian { background:var(--accent); color:#fff; }
+    .part-banner.child { background:var(--child); color:#fff; }
+    .section { background:var(--white); border:1px solid var(--border); border-radius:10px; margin-bottom:22px; overflow:hidden; }
+    .section.child-sec { border-color:#e8c9ad; }
+    .section-header { padding:15px 22px; display:flex; align-items:center; gap:13px; border-bottom:1px solid var(--border); }
+    .section-num { width:28px; height:28px; background:var(--accent); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:500; flex-shrink:0; }
+    .child-sec .section-num { background:var(--child); }
+    .section-title { font-family:var(--serif); font-size:15px; font-weight:600; }
+    .section-body { padding:20px 22px; }
+    .prose { color:var(--muted); font-size:14px; line-height:1.8; }
+    .prose p { margin-bottom:12px; } .prose p:last-child { margin-bottom:0; }
+    .prose strong { color:var(--ink); font-weight:500; }
+    .child-sec .prose { font-size:15px; color:#5a4636; }
+    .clause-list { list-style:none; margin:14px 0 0; }
+    .clause-list li { position:relative; padding:11px 0 11px 28px; border-bottom:1px solid #ece6db; font-size:14px; color:var(--muted); line-height:1.65; }
+    .clause-list li:last-child { border-bottom:none; }
+    .clause-icon { position:absolute; left:0; top:11px; font-size:13px; color:var(--accent); width:16px; text-align:center; }
+    .clause-icon.warn { color:#c0392b; }
+    .child-sec .clause-icon { color:var(--child); font-size:13px; }
+    .highlight { background:#fff8ed; border:1px solid #f0d89a; border-radius:var(--radius); padding:13px 17px; margin-top:14px; font-size:13px; color:#7a5c00; }
+    .highlight strong { font-weight:500; }
+    .field-group { margin-bottom:18px; }
+    .field-label { display:block; font-size:12px; font-weight:500; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+    .field-label .req { color:var(--danger); margin-left:2px; }
+    input[type=text], input[type=email], input[type=date] { width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius); background:var(--field-bg); font-family:var(--sans); font-size:14px; color:var(--ink); outline:none; transition:border-color .2s; }
+    input:focus { border-color:var(--accent); background:#fff; }
+    .child-sec input:focus { border-color:var(--child); }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media (max-width:520px){ .two-col{ grid-template-columns:1fr; } }
+    .check-group { display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+    .check-item { display:flex; align-items:flex-start; gap:10px; cursor:pointer; }
+    .check-item input[type=checkbox] { width:18px; height:18px; accent-color:var(--accent); margin-top:2px; flex-shrink:0; cursor:pointer; }
+    .child-sec .check-item input[type=checkbox] { accent-color:var(--child); }
+    .check-item span { font-size:14px; color:var(--muted); line-height:1.5; }
+    .child-sec .check-item span { font-size:15px; color:#5a4636; }
+    .sig-container { margin-top:10px; border:1.5px solid var(--border); border-radius:var(--radius); background:#fafafa; }
+    .sig-label-bar { padding:8px 14px; background:#f2f1ec; border-bottom:1px solid var(--border); font-size:11px; color:var(--light); letter-spacing:.5px; display:flex; justify-content:space-between; align-items:center; border-radius:var(--radius) var(--radius) 0 0; }
+    canvas.sig { display:block; width:100%; height:130px; cursor:crosshair; touch-action:none; }
+    .sig-clear { background:none; border:none; font-family:var(--sans); font-size:12px; color:var(--accent); cursor:pointer; font-weight:500; padding:0; }
+    .child-sec .sig-clear { color:var(--child); }
+    .sig-clear:hover { text-decoration:underline; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+    .btn { padding:12px 26px; border-radius:6px; font-family:var(--sans); font-size:14px; font-weight:500; cursor:pointer; border:none; transition:all .2s; }
+    .btn-primary { background:var(--accent); color:#fff; } .btn-primary:hover { background:#2f5740; }
+    .btn-secondary { background:transparent; color:var(--accent); border:1.5px solid var(--accent); } .btn-secondary:hover { background:var(--accent-light); }
+    #successScreen { display:none; background:var(--white); border:1px solid var(--border); border-radius:12px; padding:48px 36px; text-align:center; margin-top:20px; }
+    .success-icon { font-size:48px; margin-bottom:16px; }
+    .success-title { font-family:var(--serif); font-size:22px; margin-bottom:10px; }
+    .success-sub { font-size:14px; color:var(--muted); max-width:430px; margin:0 auto 24px; }
+    .error-msg { font-size:12px; color:var(--danger); margin-top:4px; display:none; }
+    input.invalid { border-color:var(--danger); }
+    .divider { border:none; border-top:1px solid var(--border); margin:18px 0; }
+    @media print {
+      body { background:#fff; }
+      .page-header { background:#fff!important; color:var(--ink)!important; border-bottom:2px solid var(--accent); }
+      .btn, .sig-clear, .actions { display:none!important; }
+      .section, .part-banner { break-inside:avoid; }
+      .part-banner.guardian { background:#fff!important; color:var(--accent)!important; border:2px solid var(--accent); }
+      .part-banner.child { background:#fff!important; color:var(--child)!important; border:2px solid var(--child); }
+      #successScreen { display:none!important; } #mainForm { display:block!important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="kicker">Confidential &nbsp;·&nbsp; For Clients Under 18</div>
+  <h1>Parent / Guardian Consent &amp; Young Person's Assent</h1>
+  <div class="subtitle">To be completed together before the first session</div>
+</div>
+
+<div class="wrapper">
+
+  <div class="intro-box">
+    <strong>For families —</strong> This form has two parts. <strong>Part A</strong> is the informed consent that a parent or legal guardian completes on behalf of the child or adolescent. <strong>Part B</strong> is a simple agreement for the young person themselves, so they understand and feel comfortable with what counseling involves. Please read both parts together where appropriate.
+  </div>
+
+  <form id="mainForm" novalidate>
+
+    <!-- ========== PART A: GUARDIAN ========== -->
+    <div class="part-banner guardian">Part A · Parent / Legal Guardian Consent</div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">1</div><div class="section-title">About the Counselor</div></div>
+      <div class="section-body">
+        <div class="prose">
+          <p><strong>Keerti</strong> has completed a <strong>Master's degree in Psychology</strong> with a specialization in <strong>Children &amp; Adolescents Counseling</strong>, and practices under the clinical supervision of <strong>Anupama Ganu (Play Therapist)</strong>.</p>
+          <p>Supervision means casework is reviewed regularly with a qualified supervisor to ensure your child receives ethical, considered, and competent support. Sessions are offered on a <strong>pro bono basis</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">2</div><div class="section-title">Nature of Counseling with Young People</div></div>
+      <div class="section-body">
+        <div class="prose">
+          <p>Counseling provides a safe, supportive space for your child to express themselves and develop coping skills, sometimes through talking, play, or creative activities appropriate to their age.</p>
+          <p>Sessions can be conducted <strong>online or in person</strong>, as mutually agreed. Each session is typically <strong>50 minutes</strong>, held <strong>once a week</strong>. The total number of sessions will be reviewed together based on your child's progress and needs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">3</div><div class="section-title">Confidentiality &amp; Parental Involvement</div></div>
+      <div class="section-body">
+        <div class="prose">
+          <p>For counseling to be effective, the young person needs to feel their conversations are private. At the same time, as a parent or guardian, you have a right to be appropriately informed about your child's wellbeing and progress.</p>
+          <p>To balance these, the general approach is:</p>
+        </div>
+        <ul class="clause-list">
+          <li><span class="clause-icon">◈</span>The <strong>specific content</strong> of sessions is kept private to support the child's trust and openness</li>
+          <li><span class="clause-icon">◈</span>You will receive <strong>general updates</strong> on themes, progress, and how you can support your child at home</li>
+          <li><span class="clause-icon warn">◈</span>Confidentiality <strong>will be broken</strong> to inform you and/or relevant authorities if there is a risk of serious harm to your child or others, any disclosure of abuse, or if required by law</li>
+          <li><span class="clause-icon">◈</span>Case material may be discussed confidentially in <strong>clinical supervision</strong></li>
+        </ul>
+        <div class="highlight"><strong>Safety first:</strong> If anything raises concern for your child's safety or wellbeing, you (or the appropriate authorities) will be informed. Counseling will never be used to keep safety concerns from a parent or guardian.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">4</div><div class="section-title">Online &amp; In-Person Guidelines</div></div>
+      <div class="section-body">
+        <ul class="clause-list">
+          <li><span class="clause-icon">◈</span>For online sessions, please help your child join from a <strong>private, quiet space</strong> with a stable connection</li>
+          <li><span class="clause-icon">◈</span>A parent/guardian should be <strong>contactable nearby</strong> during the session, especially for younger children</li>
+          <li><span class="clause-icon">◈</span><strong>Sessions will not be recorded</strong> by either party without prior written consent</li>
+          <li><span class="clause-icon">◈</span>For in-person sessions, venue and arrangements will be agreed with you in advance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">5</div><div class="section-title">Your Rights &amp; Emergencies</div></div>
+      <div class="section-body">
+        <ul class="clause-list">
+          <li><span class="clause-icon">◈</span>You may <strong>withdraw your child</strong> from counseling at any time</li>
+          <li><span class="clause-icon">◈</span>You may <strong>ask questions</strong> about the process at any point</li>
+          <li><span class="clause-icon">◈</span>You have the right to a <strong>planned ending</strong> wherever possible</li>
+          <li><span class="clause-icon">◈</span>This is <strong>not an emergency service</strong>; in a crisis please contact your local emergency services or a mental health helpline available in your region</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">6</div><div class="section-title">Child &amp; Guardian Details</div></div>
+      <div class="section-body">
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">Child's Full Name <span class="req">*</span></label>
+            <input type="text" id="childName" required />
+            <div class="error-msg" id="err-childName">Please enter the child's name.</div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Child's Date of Birth <span class="req">*</span></label>
+            <input type="date" id="childDob" required />
+            <div class="error-msg" id="err-childDob">Please enter the child's date of birth.</div>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">Parent / Guardian Name <span class="req">*</span></label>
+            <input type="text" id="guardianName" required />
+            <div class="error-msg" id="err-guardianName">Please enter the guardian's name.</div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Relationship to Child <span class="req">*</span></label>
+            <input type="text" id="guardianRel" required />
+            <div class="error-msg" id="err-guardianRel">Please enter the relationship.</div>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">Phone / WhatsApp <span class="req">*</span></label>
+            <input type="text" id="guardianPhone" required />
+            <div class="error-msg" id="err-guardianPhone">Please enter a phone number.</div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email Address</label>
+            <input type="email" id="guardianEmail" placeholder="optional" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Emergency Contact (if different) </label>
+          <input type="text" id="emergencyContact" placeholder="Name · Relationship · Phone" />
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">7</div><div class="section-title">Guardian Consent Statements</div></div>
+      <div class="section-body">
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox" id="g1" /><span>I confirm that I am the parent or legal guardian of the child named above and am authorized to give consent for their counseling.</span></label>
+          <label class="check-item"><input type="checkbox" id="g2" /><span>I have read and understood this document and have had the opportunity to ask questions.</span></label>
+          <label class="check-item"><input type="checkbox" id="g3" /><span>I understand the counselor's qualifications and supervised practice under Anupama Ganu (Play Therapist).</span></label>
+          <label class="check-item"><input type="checkbox" id="g4" /><span>I understand the approach to confidentiality, parental updates, and the safety-related limits described in Section 3.</span></label>
+          <label class="check-item"><input type="checkbox" id="g5" /><span>I give my informed consent for my child to engage in counseling sessions with Keerti under the terms described here.</span></label>
+        </div>
+        <div class="error-msg" id="err-gchecks" style="margin-top:10px;">Please confirm all guardian statements.</div>
+
+        <hr class="divider" />
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">Date <span class="req">*</span></label>
+            <input type="date" id="guardianDate" required />
+            <div class="error-msg" id="err-guardianDate">Please select the date.</div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Parent / Guardian Signature <span class="req">*</span></label>
+          <div class="sig-container">
+            <div class="sig-label-bar"><span>GUARDIAN SIGNS HERE</span><button type="button" class="sig-clear" onclick="clearSig('g')">Clear</button></div>
+            <canvas class="sig" id="sigGuardian"></canvas>
+          </div>
+          <div class="error-msg" id="err-sigG">Please provide the guardian's signature.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PART B: CHILD ========== -->
+    <div class="part-banner child">Part B · For the Young Person</div>
+
+    <div class="section child-sec">
+      <div class="section-header"><div class="section-num">8</div><div class="section-title">A Note Just for You</div></div>
+      <div class="section-body">
+        <div class="prose">
+          <p>Hi! My name is <strong>Keerti</strong>. I'm someone you can talk to about your feelings, worries, or anything on your mind. We might talk, draw, play, or do activities together — whatever feels okay for you.</p>
+          <p>Here are some things I want you to know:</p>
+        </div>
+        <ul class="clause-list">
+          <li><span class="clause-icon">★</span>You don't have to talk about anything you're not ready to talk about.</li>
+          <li><span class="clause-icon">★</span>What we talk about is mostly private between us.</li>
+          <li><span class="clause-icon">★</span>But if I'm ever worried that you or someone else might get hurt, I will need to tell a grown-up who can help keep you safe — and I'll try to tell you first.</li>
+          <li><span class="clause-icon">★</span>It's okay to tell me if something feels uncomfortable, or if you don't want to come. Your feelings matter here.</li>
+          <li><span class="clause-icon">★</span>There are no wrong answers, and you won't be in trouble for anything you share.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section child-sec">
+      <div class="section-header"><div class="section-num">9</div><div class="section-title">Do You Agree to Give It a Try?</div></div>
+      <div class="section-body">
+        <div class="prose" style="margin-bottom:14px;"><p>You can check the boxes that feel true for you. (A grown-up can help you read these.)</p></div>
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox" id="a1" /><span>Someone explained to me what these sessions are about.</span></label>
+          <label class="check-item"><input type="checkbox" id="a2" /><span>I know I can say if I feel uncomfortable or want to stop.</span></label>
+          <label class="check-item"><input type="checkbox" id="a3" /><span>I'm okay to try these sessions.</span></label>
+        </div>
+        <div class="error-msg" id="err-achecks" style="margin-top:10px;">Please check the boxes that are true for you.</div>
+
+        <hr class="divider" />
+        <div class="field-group">
+          <label class="field-label">Your Name </label>
+          <input type="text" id="childSignName" placeholder="You can write your name or nickname" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Your Signature or Drawing <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:11px;color:var(--light);">— sign, write, or even draw something!</span></label>
+          <div class="sig-container">
+            <div class="sig-label-bar"><span>YOUR TURN — SIGN OR DRAW HERE</span><button type="button" class="sig-clear" onclick="clearSig('c')">Clear</button></div>
+            <canvas class="sig" id="sigChild"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary" onclick="submitForm()">✓ Submit Form</button>
+      <button type="button" class="btn btn-secondary" onclick="window.print()">⎙ Print / Save as PDF</button>
+    </div>
+
+  </form>
+
+  <div id="successScreen">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Form Submitted</div>
+    <div class="success-sub">Thank you. The consent and assent have been recorded. Keerti will be in touch to confirm the first session.</div>
+    <button class="btn btn-secondary" onclick="window.print()">⎙ Save a copy (Print / PDF)</button>
+  </div>
+
+</div>
+
+<script>
+  const pads={};
+  function initPad(id){
+    const c=document.getElementById(id);const ctx=c.getContext('2d');
+    const st={drawing:false,has:false,ctx,c};
+    function size(){const r=window.devicePixelRatio||1;const b=c.getBoundingClientRect();c.width=b.width*r;c.height=b.height*r;ctx.scale(r,r);ctx.strokeStyle='#1a2535';ctx.lineWidth=2;ctx.lineCap='round';ctx.lineJoin='round';}
+    function pos(e){const b=c.getBoundingClientRect();if(e.touches)return{x:e.touches[0].clientX-b.left,y:e.touches[0].clientY-b.top};return{x:e.clientX-b.left,y:e.clientY-b.top};}
+    c.addEventListener('mousedown',e=>{st.drawing=true;ctx.beginPath();const p=pos(e);ctx.moveTo(p.x,p.y);});
+    c.addEventListener('mousemove',e=>{if(!st.drawing)return;st.has=true;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();});
+    c.addEventListener('mouseup',()=>st.drawing=false);c.addEventListener('mouseleave',()=>st.drawing=false);
+    c.addEventListener('touchstart',e=>{e.preventDefault();st.drawing=true;ctx.beginPath();const p=pos(e);ctx.moveTo(p.x,p.y);},{passive:false});
+    c.addEventListener('touchmove',e=>{e.preventDefault();if(!st.drawing)return;st.has=true;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();},{passive:false});
+    c.addEventListener('touchend',()=>st.drawing=false);
+    st.size=size;size();window.addEventListener('resize',size);
+    return st;
+  }
+  pads.g=initPad('sigGuardian');
+  pads.c=initPad('sigChild');
+  function clearSig(k){pads[k].size();pads[k].has=false;if(k==='g')document.getElementById('err-sigG').style.display='none';}
+
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('guardianDate').value=today;
+  document.getElementById('guardianDate').max=today;
+
+  function showErr(id,s){const e=document.getElementById('err-'+id);if(e)e.style.display=s?'block':'none';}
+  function mark(id,b){const e=document.getElementById(id);if(e)e.classList.toggle('invalid',b);}
+
+  async function submitForm(){
+    let valid=true;
+    ['childName','childDob','guardianName','guardianRel','guardianPhone','guardianDate'].forEach(id=>{
+      const bad=!document.getElementById(id).value.trim();mark(id,bad);showErr(id,bad);if(bad)valid=false;});
+    const gOk=['g1','g2','g3','g4','g5'].every(id=>document.getElementById(id).checked);
+    document.getElementById('err-gchecks').style.display=gOk?'none':'block';if(!gOk)valid=false;
+    if(!pads.g.has){document.getElementById('err-sigG').style.display='block';valid=false;}else{document.getElementById('err-sigG').style.display='none';}
+    const aOk=['a1','a2','a3'].some(id=>document.getElementById(id).checked);
+    document.getElementById('err-achecks').style.display=aOk?'none':'block';if(!aOk)valid=false;
+    if(!valid){document.querySelector('.invalid')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+
+    const submitBtn=document.querySelector('.btn-primary');
+    submitBtn.textContent='Submitting...';submitBtn.disabled=true;
+
+    const childName=document.getElementById('childName').value.trim();
+    const assentLabels=['Session explained to young person','Young person knows they can stop','Young person agreed to try'];
+    const assentGiven=['a1','a2','a3'].map((id,i)=>document.getElementById(id).checked?assentLabels[i]:null).filter(Boolean);
+
+    const data={
+      '_subject': 'New Minor Consent Form - '+childName,
+      'Child Name': childName,
+      'Child Date of Birth': document.getElementById('childDob').value,
+      'Parent / Guardian Name': document.getElementById('guardianName').value.trim(),
+      'Relationship to Child': document.getElementById('guardianRel').value.trim(),
+      'Guardian Phone / WhatsApp': document.getElementById('guardianPhone').value.trim(),
+      'Guardian Email': document.getElementById('guardianEmail').value.trim()||'Not provided',
+      'Emergency Contact': document.getElementById('emergencyContact').value.trim()||'Same as guardian',
+      'Consent Date': document.getElementById('guardianDate').value,
+      'Guardian Signature Provided': pads.g.has?'Yes':'No',
+      'All Guardian Consent Statements Agreed': gOk?'Yes':'No',
+      'Young Person Signed Name': document.getElementById('childSignName').value.trim()||'Not provided',
+      'Young Person Assent Confirmed': assentGiven.length?assentGiven.join('; '):'None checked',
+      'Young Person Drew Signature': pads.c.has?'Yes':'No',
+    };
+
+    try {
+      const res=await fetch('https://formspree.io/f/mdajkdzy',{
+        method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(data)
+      });
+      if(res.ok){
+        document.getElementById('mainForm').style.display='none';
+        document.getElementById('successScreen').style.display='block';
+        window.scrollTo({top:0,behavior:'smooth'});
+      } else {
+        submitBtn.textContent='Submit Form';submitBtn.disabled=false;
+        alert('Submission failed. Please try again or contact Keerti directly.');
+      }
+    } catch(e){
+      submitBtn.textContent='Submit Form';submitBtn.disabled=false;
+      alert('Network error. Please check your connection and try again.');
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Informed Consent – Counseling Services (Adults) | Keerti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:#1a2535; --muted:#5a6a7e; --light:#8fa0b4; --bg:#f7f5f2; --white:#fff;
+      --accent:#2B6B6B; --accent-light:#e8f2f2; --border:#ddd8d0; --field-bg:#fdfcfb;
+      --danger:#c0392b; --serif:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif; --radius:6px;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--sans); background:var(--bg); color:var(--ink); font-size:15px; line-height:1.7; min-height:100vh; }
+    .page-header { background:var(--accent); color:#fff; padding:36px 40px 30px; text-align:center; }
+    .page-header .kicker { font-size:11px; font-weight:500; letter-spacing:3px; text-transform:uppercase; opacity:.75; margin-bottom:10px; }
+    .page-header h1 { font-family:var(--serif); font-size:27px; font-weight:600; margin-bottom:6px; }
+    .page-header .subtitle { font-size:13px; opacity:.85; }
+    .wrapper { max-width:760px; margin:0 auto; padding:40px 20px 80px; }
+    .intro-box { background:var(--accent-light); border-left:4px solid var(--accent); border-radius:var(--radius); padding:18px 22px; margin-bottom:36px; font-size:14px; color:var(--accent); }
+    .intro-box strong { font-weight:500; }
+    .section { background:var(--white); border:1px solid var(--border); border-radius:10px; margin-bottom:24px; overflow:hidden; }
+    .section-header { padding:16px 24px; display:flex; align-items:center; gap:14px; border-bottom:1px solid var(--border); }
+    .section-num { width:30px; height:30px; background:var(--accent); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:500; flex-shrink:0; }
+    .section-title { font-family:var(--serif); font-size:16px; font-weight:600; }
+    .section-body { padding:22px 24px; }
+    .prose { color:var(--muted); font-size:14px; line-height:1.8; }
+    .prose p { margin-bottom:12px; } .prose p:last-child { margin-bottom:0; }
+    .prose strong { color:var(--ink); font-weight:500; }
+    .clause-list { list-style:none; margin:14px 0 0; }
+    .clause-list li { position:relative; padding:11px 0 11px 28px; border-bottom:1px solid #ece6db; font-size:14px; color:var(--muted); line-height:1.65; }
+    .clause-list li:last-child { border-bottom:none; }
+    .clause-icon { position:absolute; left:0; top:11px; font-size:13px; color:var(--accent); width:16px; text-align:center; }
+    .clause-icon.warn { color:#c0392b; }
+    .highlight { background:#fff8ed; border:1px solid #f0d89a; border-radius:var(--radius); padding:14px 18px; margin-top:14px; font-size:13px; color:#7a5c00; }
+    .highlight strong { font-weight:500; }
+    .field-group { margin-bottom:18px; }
+    .field-label { display:block; font-size:12px; font-weight:500; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+    .field-label .req { color:var(--danger); margin-left:2px; }
+    input[type=text], input[type=email], input[type=date], textarea { width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius); background:var(--field-bg); font-family:var(--sans); font-size:14px; color:var(--ink); transition:border-color .2s; outline:none; }
+    input:focus, textarea:focus { border-color:var(--accent); background:#fff; }
+    textarea { resize:vertical; min-height:80px; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media (max-width:520px){ .two-col{ grid-template-columns:1fr; } }
+    .check-group { display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+    .check-item { display:flex; align-items:flex-start; gap:10px; cursor:pointer; }
+    .check-item input[type=checkbox] { width:18px; height:18px; accent-color:var(--accent); margin-top:2px; flex-shrink:0; cursor:pointer; }
+    .check-item span { font-size:14px; color:var(--muted); line-height:1.5; }
+    .sig-container { margin-top:10px; border:1.5px solid var(--border); border-radius:var(--radius); background:#fafafa; }
+    .sig-label-bar { padding:8px 14px; background:#f3f0eb; border-bottom:1px solid var(--border); font-size:11px; color:var(--light); letter-spacing:.5px; display:flex; justify-content:space-between; align-items:center; border-radius:var(--radius) var(--radius) 0 0; }
+    #signatureCanvas { display:block; width:100%; height:140px; cursor:crosshair; touch-action:none; }
+    .sig-clear { background:none; border:none; font-family:var(--sans); font-size:12px; color:var(--accent); cursor:pointer; font-weight:500; padding:0; }
+    .sig-clear:hover { text-decoration:underline; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+    .btn { padding:12px 26px; border-radius:6px; font-family:var(--sans); font-size:14px; font-weight:500; cursor:pointer; border:none; transition:all .2s; }
+    .btn-primary { background:var(--accent); color:#fff; } .btn-primary:hover { background:#235858; }
+    .btn-secondary { background:transparent; color:var(--accent); border:1.5px solid var(--accent); } .btn-secondary:hover { background:var(--accent-light); }
+    #successScreen { display:none; background:var(--white); border:1px solid var(--border); border-radius:12px; padding:48px 36px; text-align:center; margin-top:20px; }
+    .success-icon { font-size:48px; margin-bottom:16px; }
+    .success-title { font-family:var(--serif); font-size:22px; margin-bottom:10px; }
+    .success-sub { font-size:14px; color:var(--muted); max-width:420px; margin:0 auto 24px; }
+    .error-msg { font-size:12px; color:var(--danger); margin-top:4px; display:none; }
+    input.invalid, textarea.invalid { border-color:var(--danger); }
+    .divider { border:none; border-top:1px solid var(--border); margin:18px 0; }
+    .tag-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+    .tag { background:var(--accent-light); color:var(--accent); font-size:12px; padding:4px 12px; border-radius:20px; font-weight:500; }
+    @media print {
+      body { background:#fff; }
+      .page-header { background:#fff!important; color:var(--ink)!important; border-bottom:2px solid var(--accent); }
+      .btn, .sig-clear, .actions { display:none!important; }
+      .section { border:1px solid #ccc; break-inside:avoid; }
+      #successScreen { display:none!important; } #mainForm { display:block!important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="kicker">Confidential Document &nbsp;·&nbsp; For Clients Aged 18+</div>
+  <h1>Informed Consent for Counseling</h1>
+  <div class="subtitle">Please read carefully and complete all sections before your first session</div>
+</div>
+
+<div class="wrapper">
+
+  <div class="intro-box">
+    <strong>Before we begin —</strong> This document explains your rights as a client, the nature of our work together, and important boundaries around confidentiality. Reading it fully helps us build a safe, transparent, and trusting space. If anything here is unclear, please ask before signing.
+  </div>
+
+  <form id="mainForm" novalidate>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">1</div><div class="section-title">About Your Counselor</div></div>
+      <div class="section-body">
+        <div class="prose">
+          <p>My name is <strong>Keerti</strong>. I have completed my <strong>Master's degree in Psychology</strong>, with a specialization in <strong>Children &amp; Adolescents Counseling</strong>.</p>
+          <p>I currently practice under the clinical supervision of <strong>Anupama Ganu (Play Therapist)</strong>. Working under supervision means my casework is reviewed regularly to ensure you receive ethical, considered, and competent support.</p>
+        </div>
+        <div class="tag-row">
+          <span class="tag">M.A./M.Sc. Psychology</span>
+          <span class="tag">Children &amp; Adolescents Specialization</span>
+          <span class="tag">Supervised Practice</span>
+          <span class="tag">Pro Bono</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">2</div><div class="section-title">Nature of Counseling</div></div>
+      <div class="section-body">
+        <div class="prose">
+          <p>Counseling is a collaborative process. Together we will explore your thoughts, feelings, and experiences in a safe, non-judgmental space, working toward insight, coping, and the changes you want in your life.</p>
+          <p>Counseling is not a quick fix and may at times bring up difficult emotions — a natural part of the process. You remain in control of what you share and at what pace.</p>
+        </div>
+        <ul class="clause-list">
+          <li><span class="clause-icon">◈</span>Sessions can be conducted <strong>online (video call)</strong> or <strong>in person</strong>, as mutually agreed</li>
+          <li><span class="clause-icon">◈</span>Each session is typically <strong>50 minutes</strong>, held <strong>once a week</strong> at a mutually agreed time</li>
+          <li><span class="clause-icon">◈</span>The total number of sessions will be discussed based on your needs and reviewed as we go</li>
+          <li><span class="clause-icon">◈</span>Sessions are offered on a <strong>pro bono basis</strong> — there are no fees</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">3</div><div class="section-title">Clinical Supervision</div></div>
+      <div class="section-body">
+        <div class="prose">
+          <p>As part of ethical practice, I receive regular clinical supervision from <strong>Anupama Ganu (Play Therapist)</strong>. This means aspects of our work may be discussed in supervision to ensure you receive safe and effective support.</p>
+          <p>Your identity and personal details are kept confidential within supervision; my supervisor is also bound by professional ethics and confidentiality. Supervision is a standard and protective part of counseling practice.</p>
+        </div>
+        <div class="highlight"><strong>What this means for you:</strong> The content of our sessions may be discussed confidentially with my supervisor. This is for your benefit and is a routine, ethical part of supervised practice — not a breach of your privacy.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">4</div><div class="section-title">Confidentiality &amp; Its Limits</div></div>
+      <div class="section-body">
+        <div class="prose"><p>Everything you share is <strong>confidential</strong>. I will not disclose your information without your written consent — except in the following ethically and legally required situations:</p></div>
+        <ul class="clause-list">
+          <li><span class="clause-icon warn">◈</span>Risk of <strong>serious harm to yourself</strong> where you are unable to stay safe</li>
+          <li><span class="clause-icon warn">◈</span>Risk of <strong>serious harm to another person</strong></li>
+          <li><span class="clause-icon warn">◈</span>Disclosure or risk of harm to a <strong>child or vulnerable adult</strong></li>
+          <li><span class="clause-icon warn">◈</span>If disclosure is <strong>required by law or a court order</strong></li>
+          <li><span class="clause-icon">◈</span>Case material shared in <strong>clinical supervision</strong> (Section 3)</li>
+        </ul>
+        <div class="highlight">Where your safety or another's is at risk, I will aim to discuss any necessary action with you first wherever it is safe and possible to do so.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">5</div><div class="section-title">Online &amp; In-Person Session Guidelines</div></div>
+      <div class="section-body">
+        <div class="prose"><p><strong>For online sessions:</strong></p></div>
+        <ul class="clause-list">
+          <li><span class="clause-icon">◈</span>Please be in a <strong>private, quiet space</strong> where you will not be overheard</li>
+          <li><span class="clause-icon">◈</span>Use <strong>headphones</strong> where possible for privacy</li>
+          <li><span class="clause-icon">◈</span><strong>Sessions will not be recorded</strong> by either party without prior written consent</li>
+          <li><span class="clause-icon">◈</span>Ensure a <strong>stable internet connection</strong>; if disconnected, I will attempt to reconnect or contact you shortly</li>
+          <li><span class="clause-icon">◈</span>Please do not attend while <strong>driving or in a public place</strong></li>
+        </ul>
+        <div class="prose" style="margin-top:16px;"><p><strong>For in-person sessions:</strong> The venue, timing, and any practical arrangements will be communicated and agreed with you in advance.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">6</div><div class="section-title">Cancellations &amp; Missed Sessions</div></div>
+      <div class="section-body">
+        <ul class="clause-list">
+          <li><span class="clause-icon">◈</span>Please give at least <strong>24 hours' notice</strong> if you need to cancel or reschedule, so the time can be offered to someone else</li>
+          <li><span class="clause-icon">◈</span>If you miss two or more consecutive sessions without notice, we will need to have a conversation about whether to continue</li>
+          <li><span class="clause-icon">◈</span>I will equally give you at least 24 hours' notice if I need to reschedule</li>
+          <li><span class="clause-icon">◈</span>Cancellations can be communicated via WhatsApp message</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">7</div><div class="section-title">Contact Between Sessions &amp; Emergencies</div></div>
+      <div class="section-body">
+        <div class="prose">
+          <p>I am available for <strong>brief, practical contact</strong> (scheduling, cancellations) via WhatsApp. Messaging is not a substitute for sessions; if something urgent comes up, let me know and we can arrange an earlier session where possible.</p>
+          <p><strong>I am not an emergency or crisis service.</strong> If you are in immediate danger or crisis between sessions, please contact your local emergency services or a mental health crisis helpline available in your region.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">8</div><div class="section-title">Your Rights as a Client</div></div>
+      <div class="section-body">
+        <ul class="clause-list">
+          <li><span class="clause-icon">◈</span>You may <strong>withdraw from counseling at any time</strong> without giving a reason</li>
+          <li><span class="clause-icon">◈</span>You may <strong>ask questions</strong> about the process at any point</li>
+          <li><span class="clause-icon">◈</span>You may <strong>give feedback</strong> about your experience</li>
+          <li><span class="clause-icon">◈</span>You have the right to a <strong>planned ending</strong> wherever possible</li>
+          <li><span class="clause-icon">◈</span>If our work is not helping, please <strong>tell me directly</strong> so we can adjust or consider a referral</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">9</div><div class="section-title">Your Details</div></div>
+      <div class="section-body">
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">Full Name <span class="req">*</span></label>
+            <input type="text" id="clientName" required />
+            <div class="error-msg" id="err-clientName">Please enter your full name.</div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Date of Birth <span class="req">*</span></label>
+            <input type="date" id="clientDob" required />
+            <div class="error-msg" id="err-clientDob">Please enter your date of birth.</div>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">Phone / WhatsApp <span class="req">*</span></label>
+            <input type="text" id="clientPhone" required />
+            <div class="error-msg" id="err-clientPhone">Please enter your phone number.</div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email Address</label>
+            <input type="email" id="clientEmail" placeholder="optional" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Emergency Contact (Name · Relationship · Phone) <span class="req">*</span></label>
+          <input type="text" id="emergencyContact" required />
+          <div class="error-msg" id="err-emergencyContact">Please enter an emergency contact.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">10</div><div class="section-title">Consent Statements</div></div>
+      <div class="section-body">
+        <div class="prose" style="margin-bottom:16px;"><p>Please check each statement to confirm your understanding and agreement.</p></div>
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox" id="c1" /><span>I have read and understood this document and have had the opportunity to ask questions.</span></label>
+          <label class="check-item"><input type="checkbox" id="c2" /><span>I understand that my counselor holds a Master's in Psychology, practices under the clinical supervision of Anupama Ganu (Play Therapist), and that my casework may be discussed confidentially in supervision.</span></label>
+          <label class="check-item"><input type="checkbox" id="c3" /><span>I understand the limits of confidentiality described in Section 4 and consent to disclosure in those circumstances.</span></label>
+          <label class="check-item"><input type="checkbox" id="c4" /><span>I understand and agree to the online and in-person session guidelines in Section 5, including that sessions will not be recorded without prior written consent.</span></label>
+          <label class="check-item"><input type="checkbox" id="c5" /><span>I understand I may end counseling at any time and may raise any concerns about our work at any point.</span></label>
+          <label class="check-item"><input type="checkbox" id="c6" /><span>I give my informed consent to engage in counseling sessions with Keerti under the terms described in this document.</span></label>
+        </div>
+        <div class="error-msg" id="err-checkboxes" style="margin-top:10px;">Please confirm all statements before signing.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header"><div class="section-num">11</div><div class="section-title">Signature &amp; Date</div></div>
+      <div class="section-body">
+        <div class="field-group">
+          <label class="field-label">Today's Date <span class="req">*</span></label>
+          <input type="date" id="consentDate" required />
+          <div class="error-msg" id="err-consentDate">Please select today's date.</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Your Signature <span class="req">*</span> <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:11px;color:var(--light);">&nbsp;— draw with mouse or finger</span></label>
+          <div class="sig-container">
+            <div class="sig-label-bar"><span>SIGN WITHIN THIS BOX</span><button type="button" class="sig-clear" onclick="clearSignature()">Clear</button></div>
+            <canvas id="signatureCanvas"></canvas>
+          </div>
+          <div class="error-msg" id="err-sig">Please provide your signature.</div>
+        </div>
+        <hr class="divider" />
+        <div class="actions">
+          <button type="button" class="btn btn-primary" onclick="submitForm()">✓ Submit Consent Form</button>
+          <button type="button" class="btn btn-secondary" onclick="window.print()">⎙ Print / Save as PDF</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+  <div id="successScreen">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Consent Form Submitted</div>
+    <div class="success-sub">Thank you, <span id="successName"></span>. Your informed consent has been recorded. Keerti will confirm your first session shortly.</div>
+    <button class="btn btn-secondary" onclick="window.print()">⎙ Save a copy (Print / PDF)</button>
+  </div>
+
+</div>
+
+<script>
+  const canvas=document.getElementById('signatureCanvas');const ctx=canvas.getContext('2d');
+  let drawing=false,hasSig=false;
+  function resizeCanvas(){const r=window.devicePixelRatio||1;const b=canvas.getBoundingClientRect();canvas.width=b.width*r;canvas.height=b.height*r;ctx.scale(r,r);ctx.strokeStyle='#1a2535';ctx.lineWidth=2;ctx.lineCap='round';ctx.lineJoin='round';}
+  function getPos(e){const b=canvas.getBoundingClientRect();if(e.touches)return{x:e.touches[0].clientX-b.left,y:e.touches[0].clientY-b.top};return{x:e.clientX-b.left,y:e.clientY-b.top};}
+  canvas.addEventListener('mousedown',e=>{drawing=true;ctx.beginPath();const p=getPos(e);ctx.moveTo(p.x,p.y);});
+  canvas.addEventListener('mousemove',e=>{if(!drawing)return;hasSig=true;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();});
+  canvas.addEventListener('mouseup',()=>drawing=false);canvas.addEventListener('mouseleave',()=>drawing=false);
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;ctx.beginPath();const p=getPos(e);ctx.moveTo(p.x,p.y);},{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;hasSig=true;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();},{passive:false});
+  canvas.addEventListener('touchend',()=>drawing=false);
+  window.addEventListener('resize',resizeCanvas);resizeCanvas();
+  function clearSignature(){resizeCanvas();hasSig=false;document.getElementById('err-sig').style.display='none';}
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('consentDate').value=today;document.getElementById('consentDate').max=today;
+  function showErr(id,s){document.getElementById('err-'+id).style.display=s?'block':'none';}
+  function markField(id,b){const e=document.getElementById(id);if(e)e.classList.toggle('invalid',b);}
+  async function submitForm(){
+    let valid=true;
+    ['clientName','clientDob','clientPhone','emergencyContact','consentDate'].forEach(id=>{
+      const bad=!document.getElementById(id).value.trim();markField(id,bad);showErr(id,bad);if(bad)valid=false;});
+    const allChecked=['c1','c2','c3','c4','c5','c6'].every(id=>document.getElementById(id).checked);
+    document.getElementById('err-checkboxes').style.display=allChecked?'none':'block';if(!allChecked)valid=false;
+    if(!hasSig){document.getElementById('err-sig').style.display='block';valid=false;}else{document.getElementById('err-sig').style.display='none';}
+    if(!valid){document.querySelector('.invalid')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+
+    const submitBtn=document.querySelector('.btn-primary');
+    submitBtn.textContent='Submitting...';submitBtn.disabled=true;
+
+    const data={
+      'Full Name': document.getElementById('clientName').value.trim(),
+      'Date of Birth': document.getElementById('clientDob').value,
+      'Phone / WhatsApp': document.getElementById('clientPhone').value.trim(),
+      'Email': document.getElementById('clientEmail').value.trim()||'Not provided',
+      'Emergency Contact': document.getElementById('emergencyContact').value.trim(),
+      'Consent Date': document.getElementById('consentDate').value,
+      'Signature Provided': hasSig?'Yes':'No',
+      'All Consent Statements Agreed': allChecked?'Yes':'No',
+      '_subject': 'New Adult Consent Form - '+document.getElementById('clientName').value.trim(),
+    };
+
+    try {
+      const res=await fetch('https://formspree.io/f/mdajkdzy',{
+        method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(data)
+      });
+      if(res.ok){
+        document.getElementById('successName').textContent=document.getElementById('clientName').value.trim().split(' ')[0];
+        document.getElementById('mainForm').style.display='none';
+        document.getElementById('successScreen').style.display='block';
+        window.scrollTo({top:0,behavior:'smooth'});
+      } else {
+        submitBtn.textContent='Submit Consent Form';submitBtn.disabled=false;
+        alert('Submission failed. Please try again or contact Keerti directly.');
+      }
+    } catch(e){
+      submitBtn.textContent='Submit Consent Form';submitBtn.disabled=false;
+      alert('Network error. Please check your connection and try again.');
+    }
+  }
+</script>
+</body>
+</html>
